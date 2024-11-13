@@ -25,6 +25,42 @@ public class ExpressionEvaluatorApp {
         return evaluatePostfix(postfixExpression, variables);
     }
 
+private static double evaluatePostfix(Queue<String> postfixExpression, Map<String, Double> variables) {
+        Stack<Double> operandStack = new Stack<>();
+
+        while (!postfixExpression.isEmpty()) {
+            String token = postfixExpression.poll();
+
+            if (Utilities.isNumeric(token)) {
+                operandStack.push(Double.valueOf(Double.parseDouble(token)));
+            } else if (variables.containsKey(token)) {
+                operandStack.push(variables.get(token));
+            } else {
+                double operand2 = operandStack.pop();
+                double operand1 = operandStack.pop();
+
+                switch (token) {
+                    case "+":
+                        operandStack.push(Double.valueOf(operand1 + operand2));
+                        break;
+                    case "-":
+                        operandStack.push(Double.valueOf(operand1 - operand2));
+                        break;
+                    case "*":
+                        operandStack.push(Double.valueOf(operand1 * operand2));
+                        break;
+                    case "/":
+                        operandStack.push(Double.valueOf(operand1 / operand2));
+                        break;
+                    case "^":
+                        operandStack.push(Double.valueOf(Math.pow(operand1, operand2)));
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Неверный оператор: " + token);
+                }
+            }
+        }
+
         return operandStack.pop();
     }
 }
