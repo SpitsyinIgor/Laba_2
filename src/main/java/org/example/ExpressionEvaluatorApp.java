@@ -18,6 +18,13 @@ public class ExpressionEvaluatorApp {
         }
     }
 
+  private static double evaluateExpression(String expression, Map<String, Double> variables) {
+        List<String> tokens = Tokenizer.tokenize(expression);
+        Queue<String> postfixExpression = InfixToPostfixConverter.infixToPostfix(tokens);
+
+        return evaluatePostfix(postfixExpression, variables);
+    }
+
         return operandStack.pop();
     }
 }
