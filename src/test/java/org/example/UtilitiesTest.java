@@ -18,5 +18,16 @@ public class UtilitiesTest {
         assertFalse(Utilities.isNumeric("1a2b3c"));
     }
 
-   
+    @Test
+    public void testGetPrecedence() {
+        // Тест для проверки получения приоритета оператора
+
+        assertEquals(1, Utilities.getPrecedence("+"));
+        assertEquals(1, Utilities.getPrecedence("-"));
+        assertEquals(2, Utilities.getPrecedence("*"));
+        assertEquals(2, Utilities.getPrecedence("/"));
+        assertEquals(3, Utilities.getPrecedence("^"));
+        assertEquals(0, Utilities.getPrecedence("("));
+        assertEquals(0, Utilities.getPrecedence(")"));
+    }
 }
